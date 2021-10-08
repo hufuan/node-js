@@ -9,7 +9,7 @@ const session = require('express-session')
 const initializePassport = require('./passport-config');
 const methodOverride = require('method-override')
 initializePassport(
-    password, 
+    passport, 
     email=>{ users.find(user => user.email === email),
     id => {users.find(user => user.id === id)}
 });
@@ -27,6 +27,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'))
+
 app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', {name: req.user.name});
 })
@@ -35,11 +36,11 @@ app.get('/login',checkNotAuthenticated,  (req, res) =>{
     res.render('login.ejs');
 })
 
-app.post('/login',checkNotAuthenticated,  passport.authenticate('local', {
+app.post('/login', checkNotAuthenticated,  passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login',
     failureFlash: true
-})
+}));
 
 app.get('/register', (req, res) =>{
     res.render('register.ejs');
@@ -57,6 +58,7 @@ app.post('/register', checkNotAuthenticated, async (req, res)=>{
     } catch {
         res.redirect('/register');
     }
+    console.log(users);
 });
 
 app.delete('logout', (req, res)=>{
@@ -68,7 +70,7 @@ function checkAuthenticated(req, res, next){
     if (req.isAuthenticated()) {
         return next();
     }
-    res.redirect
+    return res.redirect('/login')
 }
 
 function checkNotAuthenticated(req, res, next){

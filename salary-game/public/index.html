@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>猜工资游戏</title>
+        <style type="text/css">
+
+            #outer {
+            width: 600px;
+            height: 200px;
+            margin: 50px auto;
+            padding: 200px;
+            background-color: #adeea4;
+            text-align: center;
+            font-size: xx-large;
+            }
+            button{
+                display: inline-block; 
+                width: 120px;
+                height: 40px;
+                background-color: white;
+                font-size: large;
+            }
+            button#btn1 {
+                background-color: rosybrown
+            }
+
+            button#btn2 {
+                background-color: lightskyblue
+            }
+            button#btn3 {
+                background-color: lightgreen
+            }
+            button#btn5 {
+                background-color: red
+            }
+        </style>
+        <script type="text/javascript">
+            var salary_lo = 0;
+            var salary_hi = 100000;
+            var salary_leve10 = 90000;
+            var curentValue = 20000;
+            const definition_value = 300;
+
+            function setResultDisplay(value){
+                var divD = document.getElementById("result");
+                    divD.style.display = value;
+            }
+             window.onload = function() {
+                var btn0 = document.getElementById("btn0");
+                curentValue = Number(btn0.innerText.replace(/[^0-9]/ig,""));
+                console.log(curentValue);
+                console.log(typeof curentValue);
+                var btn1 = document.getElementById("btn1");
+                var btn2 = document.getElementById("btn2");
+                var btn3 = document.getElementById("btn3");
+                var btn4 = document.getElementById("btn4");
+                var btn5 = document.getElementById("btn5");
+                //too much
+                btn1.onclick = function() {
+                    console.log("too much");
+                    salary_hi = curentValue;
+                    let attempValue = Math.round((salary_lo + curentValue) / 2);
+                    let gap  =  curentValue - attempValue;
+                    let newValue = 0;
+                    if (gap < definition_value){
+                        newValue = curentValue - definition_value;
+                    } else {
+                        newValue = attempValue
+                    }
+                    curentValue = newValue;
+                    var outputStr = `￥ ${newValue}`;
+                    console.log("set new value to:", outputStr);
+                    console.log("last gap :", gap);
+                    console.log("salary_hi :", salary_hi);
+                    console.log("salary_lo :", salary_lo);
+                    btn0.innerText = outputStr;
+                }
+
+                //too small
+                btn2.onclick = function() {
+                    console.log("too small");
+                    let attempValue = 0;
+                    salary_lo = curentValue;
+                    let newValue = 0;
+                    if (curentValue <= salary_leve10){
+                        attempValue = Math.round((salary_hi + curentValue) / 2);
+                    } else {
+                        attempValue = curentValue*2;
+						salary_hi = attempValue;
+                    }
+                    let gap = attempValue - curentValue;
+                    if (gap < definition_value){
+                        newValue = curentValue + definition_value;
+                    } else {
+                        newValue = attempValue
+                    }
+                    curentValue = newValue;
+                    var outputStr = `￥ ${newValue}`;
+                    console.log("set new value to:", outputStr);
+                    console.log("last gap :", gap);
+                    console.log("salary_hi :", salary_hi);
+                    console.log("salary_lo :", salary_lo);
+                    btn0.innerText = outputStr;
+                }
+
+                btn3.onclick = function() {
+                    console.log("ok");
+                    var outputStr = `￥ ${curentValue}`;
+                    btn4.innerText = outputStr;
+                    setResultDisplay("block");
+                }
+                btn5.onclick = function() {
+                    console.log("reset");
+                    btn4.innerText = "";
+                    salary_lo = 0;
+                    salary_hi = 100000;
+                    curentValue = 20000;
+                    curentValue = curentValue;
+                    var outputStr = `￥ ${curentValue}`;
+                    btn0.innerText = outputStr;
+                    setResultDisplay("none");
+                }
+             }
+        </script>
+    </head>
+    <body>
+        <div id="outer">
+            <div>
+                <span>你的月工资是</span> <button id="btn0">￥ 20000</button>  <span>吗？</span>
+            <div>
+                <br>
+            <div>
+                <button id="btn1">多了</button>   
+                <button id="btn2">少了</button> 
+                <button id="btn3">差不多</button> 
+            </div>
+            <br>
+            <div id="result" style="display:none;">
+                <span>恭喜你，你的月工资是</span> <button id="btn4"></button>  <span>左右！</span>
+            </div>
+            <br>
+            <br>
+            <div>
+                <button id="btn5">复位</button>
+            </div>
+        </div>
+    </body>
+</html>

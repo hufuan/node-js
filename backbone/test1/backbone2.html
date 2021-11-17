@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.0/underscore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.0/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js"></script>
+    <script type="text/javascript">
+        window.onload = function()  {
+            var SearchView = Backbone.View.extend({
+    initialize: function(){
+      this.render();
+    },
+    render: function(){
+      // Compile the template using underscore
+      var template = _.template( $("#search_template").html(), {} );
+      // Load the compiled HTML into the Backbone "el"
+      this.$el.html( template );
+    }
+  });
+
+  var search_view = new SearchView({ el: $("#search_container") });
+
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

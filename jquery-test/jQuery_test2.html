@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table id="employeeTable">
+        <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Salary</td>
+            <td><a href="delete11"> Delete</a></td>
+        </tr>
+        <tr>
+            <td>Jerry</td>
+            <td>jerri@sohu.com</td>
+            <td>8000</td>
+            <td><a href="delete1111"> Delete</a></td>
+        </tr>
+        <tr>
+            <td>Jerry</td>
+            <td>jerri@sohu.com</td>
+            <td>8000</td>
+            <td><a href="delete1112"> Delete</a></td>
+        </tr>
+    </table>
+    <button id="add">add</button>
+    
+    <script src='js/jquery.js' type='text/javascript'></script>
+    <script>
+        var removeMe = function (){
+            console.log("clicked");
+                // var $tr = $(this).parent().parent();
+                // console.log($tr)
+                // var name = $tr.children(':first').html();
+                // if(confirm('are you sure?')){
+                //     $tr.remove();
+                // }
+                console.log(this)
+                console.log(typeof this)
+                var var1 = $('#employeeTable a')[0];
+                var var2 = $('#employeeTable a:last');
+                console.log(var1)
+                console.log(var2)
+                 return false;
+                }
+
+        $('#add').click(function(){
+            empName = "hufuan"
+            email="fuan.hu@netscout.com"
+            salary = 20000
+            $('<tr></tr>')
+            .append('<td>' + empName + '</td>')
+            .append('<td>' + email + '</td>')
+            .append('<td>' + salary + '</td>')
+            .append('<td><a href="ddddddd=' + Date.now() + ' ">Delete </a></td>')
+            .appendTo('#employeeTable>tbody');
+            $('#employeeTable a').click(removeMe)
+            console.log("haha1")
+            console.log($('#employeeTable a:last').text())
+            console.log("haha2")
+       
+        })
+
+       $('#employeeTable a').click(removeMe)
+      
+    //   $('#employeeTable a').click(function(){
+    //             console.log("clicked");
+    //         })
+     
+
+    </script>
+</body>
+</html>
